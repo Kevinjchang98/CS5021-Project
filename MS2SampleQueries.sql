@@ -66,7 +66,7 @@ FROM
                 AND idRating = 'HP'
         )
         OR aircraft.isHighPerformance = '0'
-    )
+    ) -- Also check annual date and if maint schedule exists for it?
 WHERE
     idCustomer = '499'
 ORDER BY

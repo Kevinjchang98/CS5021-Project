@@ -1,4 +1,6 @@
-DELIMITER / / CREATE PROCEDURE `listFlyableAircraft` (idCustomerIn INT) BEGIN
+DELIMITER //
+CREATE PROCEDURE `listFlyableAircraft` (idCustomerIn INT)
+BEGIN
 SELECT
     idAircraft,
     class,
@@ -52,5 +54,4 @@ WHERE
 ORDER BY
     class,
     rentalRate;
-
-END / /
+END//

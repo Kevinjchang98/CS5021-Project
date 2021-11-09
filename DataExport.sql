@@ -390,9 +390,9 @@ SELECT
     isHighPerformance
 FROM
     CustomerHasRating
-    INNER JOIN aircraft ON class = idRating
+    INNER JOIN Aircraft ON class = idRating
     AND (
-        aircraft.isTailwheel = EXISTS(
+        Aircraft.isTailwheel = EXISTS(
             SELECT
                 *
             FROM
@@ -401,10 +401,10 @@ FROM
                 idCustomer = idCustomerIn
                 AND idRating = 'TW'
         )
-        OR aircraft.isTailWheel = 0
+        OR Aircraft.isTailWheel = 0
     )
     AND (
-        aircraft.isComplex = EXISTS(
+        Aircraft.isComplex = EXISTS(
             SELECT
                 *
             FROM
@@ -413,10 +413,10 @@ FROM
                 idCustomer = idCustomerIn
                 AND idRating = 'CP'
         )
-        OR aircraft.isComplex = 0
+        OR Aircraft.isComplex = 0
     )
     AND (
-        aircraft.isHighPerformance = EXISTS(
+        Aircraft.isHighPerformance = EXISTS(
             SELECT
                 *
             FROM
@@ -425,7 +425,7 @@ FROM
                 idCustomer = idCustomerIn
                 AND idRating = 'HP'
         )
-        OR aircraft.isHighPerformance = '0'
+        OR Aircraft.isHighPerformance = '0'
     ) -- Also check annual date and if maint schedule exists for it?
 WHERE
     idCustomer = idCustomerIn

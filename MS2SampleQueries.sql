@@ -17,3 +17,58 @@ WHERE
     )
 ORDER BY
     class;
+
+-- Possible stored procedure to select flyable aircraft for a particular customer
+SELECT
+    idAircraft,
+    class,
+    tachTime,
+    rentalRate,
+    annualInspectionDate,
+    isTailwheel,
+    isComplex,
+    isHighPerformance
+FROM
+    CustomerHasRating
+    INNER JOIN aircraft ON class = idRating
+    AND (
+        aircraft.isTailwheel = EXISTS(
+            SELECT
+                *
+            FROM
+                CustomerHasRating
+            WHERE
+                idCustomer = '447'
+                AND idRating = 'TW'
+        )
+        OR aircraft.isTailWheel = 0
+    )
+    AND (
+        aircraft.isComplex = EXISTS(
+            SELECT
+                *
+            FROM
+                CustomerHasRating
+            WHERE
+                idCustomer = '447'
+                AND idRating = 'CP'
+        )
+        OR aircraft.isComplex = 0
+    )
+    AND (
+        aircraft.isHighPerformance = EXISTS(
+            SELECT
+                *
+            FROM
+                CustomerHasRating
+            WHERE
+                idCustomer = '447'
+                AND idRating = 'HP'
+        )
+        OR aircraft.isHighPerformance = '0'
+    )
+WHERE
+    idCustomer = '499'
+ORDER BY
+    class,
+    rentalRate;

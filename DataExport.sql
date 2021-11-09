@@ -320,7 +320,7 @@ CREATE TABLE `Ratings` (
 
 LOCK TABLES `Ratings` WRITE;
 /*!40000 ALTER TABLE `Ratings` DISABLE KEYS */;
-INSERT INTO `Ratings` VALUES ('AMEL'),('AMES'),('ASEL'),('ASES'),('CFI'),('CFII'),('HP'),('IFR'),('MEI'),('PPL'),('TW');
+INSERT INTO `Ratings` VALUES ('AMEL'),('AMES'),('ASEL'),('ASES'),('CFI'),('CFII'),('HP'),('IFR'),('MEI'),('PPL'),('TW'),('CP');
 /*!40000 ALTER TABLE `Ratings` ENABLE KEYS */;
 UNLOCK TABLES;
 

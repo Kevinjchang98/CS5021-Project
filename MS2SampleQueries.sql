@@ -38,7 +38,7 @@ FROM
             FROM
                 CustomerHasRating
             WHERE
-                idCustomer = '447'
+                idCustomer = '421'
                 AND idRating = 'TW'
         )
         OR aircraft.isTailWheel = 0
@@ -50,7 +50,7 @@ FROM
             FROM
                 CustomerHasRating
             WHERE
-                idCustomer = '447'
+                idCustomer = '421'
                 AND idRating = 'CP'
         )
         OR aircraft.isComplex = 0
@@ -62,13 +62,13 @@ FROM
             FROM
                 CustomerHasRating
             WHERE
-                idCustomer = '447'
+                idCustomer = '421'
                 AND idRating = 'HP'
         )
         OR aircraft.isHighPerformance = '0'
     ) -- Also check annual date and if maint schedule exists for it?
 WHERE
-    idCustomer = '499'
+    idCustomer = '421'
 ORDER BY
     class,
     rentalRate;

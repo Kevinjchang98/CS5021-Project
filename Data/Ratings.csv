@@ -1,12 +1,14 @@
-idRatings
-PPL
-IFR
-TW
-HP
-AMEL
-ASEL
-ASES
-AMES
-CFI
-CFII
-MEI
+idRatings,description
+AMEL,"Aircraft Multi Engine Land"
+AMES,"Aircraft Multi Engine Sea"
+ASEL,"Aircraft Single Engine Land"
+ASES,"Aircraft Single Engine Sea"
+CFI,"Certified Flight Instructor"
+CFII,"Certified Flight Instructor - Instrument"
+CP,Complex
+CPL,"Commercial Pilot License"
+HP,"High Performance"
+IFR,"Instrument Flight Rating"
+MEI,"Multi Engine Instructor"
+PPL,"Private Pilot License"
+TW,Tailwheel

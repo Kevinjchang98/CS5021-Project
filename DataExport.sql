@@ -170,7 +170,7 @@ DROP TABLE IF EXISTS `InstructorHasRating`;
 CREATE TABLE `InstructorHasRating` (
   `idInstructor` int NOT NULL,
   `idRating` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `dateObtained` varchar(45) DEFAULT NULL,
+  `dateObtained` datetime DEFAULT NULL,
   PRIMARY KEY (`idInstructor`,`idRating`),
   KEY `fk_InstructorHasRating_Ratings1_idx` (`idRating`),
   CONSTRAINT `fk_InstructorHasRating_Instructor1` FOREIGN KEY (`idInstructor`) REFERENCES `Instructor` (`idInstructor`),
@@ -383,7 +383,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'IGNORE_SPACE,ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `listFlyableAircraft`(idCustomerIn INT)
+CREATE PROCEDURE `listFlyableAircraft`(idCustomerIn INT)
 BEGIN
 SELECT
     Flyable.*,
@@ -465,4 +465,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-11-12 20:13:00
+-- Dump completed on 2021-11-12 20:52:41

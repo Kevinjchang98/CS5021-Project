@@ -1,0 +1,66 @@
+# Select customers that don’t have any saved payment info but have already made reservations
+
+select distinct nameLast, nameFirst, email
+from (
+	select cust.idCustomer, nameLast, nameFirst, email
+	from Customer as cust
+    join Reservation as res on cust.idCustomer = res.idCustomer 
+    ) as custWithRes
+left join PaymentMethod as pay on custWithRes.idCustomer = pay.idCustomer
+where idPaymentMethod is NULL
+order by nameLast, nameFirst;
+
+# Select customers that have had more than 5 reservations without invoices (so cancelled reservations) 
+# in the last month
+
+select cust.idCustomer, nameLast, nameFirst, email
+from Customer as cust
+join (
+	select idCustomer
+    from Reservation
+    where idInvoice is NULL and (datediff(curdate(), dateStart) < 31)
+    group by idCustomer
+	having count(idReservation) > 5
+	) as res on res.idCustomer = cust.idCustomer;
+
+# Select aircrafts that have gone through more than 25 reservations.
+
+select ac.idAircraft, ac.class, res.numReservations as 'Number of Reservation'
+from Aircraft as ac
+join (
+	select idAircraft, count(*) as numReservations
+    from Reservation
+    where idAircraft is not NULL
+    group by idAircraft
+    having count(*) > 25
+    ) as res on ac.idAircraft = res.idAircraft
+order by class, idAircraft;
+
+# Select the most recurring pair of customer and instructor that has flown together.
+
+select instr.idInstructor, 
+	instr.nameLast as 'Instructor Last Name',
+    instr.nameFirst as 'Instructor First Name',
+    cust.idCustomer,
+    cust.nameLast as 'Customer Last Name',
+    cust.nameFirst as 'Customer First Name',
+    timesFlownTogether as 'Total Times Flown Together'
+from (
+	select idInstructor, idCustomer, count(*) as timesFlownTogether
+	from Reservation
+	where idInstructor is not NULL
+	group by idCustomer, idInstructor
+	having timesFlownTogether = (
+		# Finds the max num of flights any customer and instructor have flown together
+		select max(count)
+		from (
+			select count(*) as count
+			from Reservation
+			where idInstructor is not NULL
+			group by idCustomer, idInstructor
+			) as t1
+		)
+	) as t2
+join Customer as cust on cust.idCustomer = t2.idCustomer
+join Instructor as instr on instr.idInstructor = t2.idInstructor
+order by instr.nameLast, instr.nameFirst, cust.nameLast, cust.nameFirst;

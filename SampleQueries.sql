@@ -167,7 +167,7 @@ HAVING
             ) a1
     );
 
---Select Aircraft that have gone through more than 25 reservations
+--Select Aircraft that have gone through more than 15 reservations
 SELECT
     ac.idAircraft,
     ac.class,
@@ -185,7 +185,7 @@ FROM
         GROUP BY
             idAircraft
         HAVING
-            count(*) > 25
+            count(*) > 15
     ) AS res ON ac.idAircraft = res.idAircraft
 ORDER BY
     class,
@@ -312,4 +312,31 @@ SELECT
 FROM
     Mechanic
 WHERE
-    email LIKE '%.edu'
+    email LIKE '%.edu';
+
+--Categorize Customer by frequency of Reservations made
+SELECT
+    DISTINCT cust.*,
+    A1.numberOfReservation,
+    CASE
+        WHEN A1.numberOfReservation = 1 THEN 'One-time Customer'
+        WHEN A1.numberOfReservation >= 2
+        AND A1.numberOfReservation < 5 THEN 'Repeated Customer'
+        WHEN A1.numberOfReservation >= 5
+        AND A1.numberOfReservation < 10 THEN 'Frequent Customer'
+        WHEN A1.numberOfReservation >= 10 THEN 'Loyal Customer'
+    END customerType
+FROM
+    Reservation res
+    JOIN Customer cust ON res.idCustomer = cust.idCustomer
+    JOIN (
+        SELECT
+            idCustomer,
+            COUNT(*) AS 'numberOfReservation'
+        FROM
+            Reservation
+        GROUP BY
+            idCustomer
+    ) A1 ON res.idCustomer = A1.idCustomer
+ORDER BY
+    idCustomer;

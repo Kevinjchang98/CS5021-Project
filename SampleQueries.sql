@@ -69,7 +69,7 @@ HAVING
             ) b1
     );
 
---Select the most frequently flown-together Customer and Instructor pair(s)
+-- Select the most frequently flown-together Customer and Instructor pair(s)
 SELECT
     instr.idInstructor,
     instr.nameLast AS 'Instructor Last Name',
@@ -134,7 +134,7 @@ WHERE
             Aircraft
     );
 
---Select the most used Instructor, their current instruction Rate and largest single Invoice
+-- Select the most used Instructor, their current instruction Rate and largest single Invoice
 SELECT
     inst.*,
     CONCAT(
@@ -167,7 +167,7 @@ HAVING
             ) a1
     );
 
---Select Aircraft that have gone through more than 15 reservations
+-- Select Aircraft that have gone through more than 15 reservations
 SELECT
     ac.idAircraft,
     ac.class,
@@ -202,7 +202,7 @@ FROM
 WHERE
     inv.isPaid = 0;
 
---Select Customers with more than 5 Reservations that have no Invoices
+-- Select Customers with more than 5 Reservations that have no Invoices
 SELECT
     cust.idCustomer,
     nameLast,
@@ -224,7 +224,7 @@ FROM
             count(idReservation) > 5
     ) AS res ON res.idCustomer = cust.idCustomer;
 
---Select Customers with no saved Payment information that already have Reservations
+-- Select Customers with no saved Payment information that already have Reservations
 SELECT
     DISTINCT nameLast,
     nameFirst,
@@ -261,7 +261,7 @@ WHERE
     res.dateStart >= (NOW() - INTERVAL 1 DAY)
     AND res.idInstructor IS NOT NULL;
 
---Select Ratings of Customers that have booked High Performance Aircraft
+-- Select Ratings of Customers that have booked High Performance Aircraft
 SELECT
     a.idCustomer,
     nameFirst,
@@ -286,7 +286,7 @@ FROM
 ORDER BY
     idCustomer;
 
---Select all people that have .edu emails
+-- Select all people that have .edu emails
 SELECT
     email,
     nameFirst,
@@ -314,7 +314,7 @@ FROM
 WHERE
     email LIKE '%.edu';
 
---Categorize Customer by frequency of Reservations made
+-- Categorize Customer by frequency of Reservations made
 SELECT
     DISTINCT cust.*,
     A1.numberOfReservation,
